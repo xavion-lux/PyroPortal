@@ -30,9 +30,8 @@ namespace PyroPortal
                     {
                         if (p.field_Private_Int32_0 == VRC.Player.prop_Player_0.prop_Int32_0)
                         {
-                            GameObject g = new GameObject("InfiniteTimer");
-                            g.transform.SetParent(p.transform);
-                            var i = g.AddComponent<InfinitePortal>();
+                            var i = p.gameObject.AddComponent<InfinitePortal>();
+                            MelonCoroutines.Start(i.SetTimer());
                         }
                     }
                 }, "Set your portals timer to max");
@@ -61,17 +60,12 @@ namespace PyroPortal
 
     public class InfinitePortal : MonoBehaviour
     {
-        public void Start()
-        {
-            MelonCoroutines.Start(SetTimer());
-        }
-
         [HideFromIl2Cpp]
         public IEnumerator SetTimer()
         {
             while (true)
             {
-                transform.parent.GetComponent<PortalInternal>().SetTimerRPC(float.MinValue, VRC.Player.prop_Player_0);
+                transform.GetComponent<PortalInternal>().SetTimerRPC(float.MinValue, VRC.Player.prop_Player_0);
                 yield return null;
             }
         }
