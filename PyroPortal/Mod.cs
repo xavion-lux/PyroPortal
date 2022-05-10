@@ -18,8 +18,8 @@ namespace PyroPortal
 
         public override void OnApplicationStart()
         {
-            module = RegisterModule("Pyro Portal", "1.0.0", "Xavi");
-            menu = module.CreateCategory("Pyro Portal");
+            module = RegisterModule("PyroPortal", "1.0.0", "Xavi");
+            menu = module.CreateCategory("PyroPortal");
 
             ClassInjector.RegisterTypeInIl2Cpp<InfinitePortal>();
 
