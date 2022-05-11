@@ -10,6 +10,14 @@ using static PyroMod.Main;
 
 namespace PyroPortal
 {
+    public class BuildInfo
+    {
+        public const string Name = "PyroPortal";
+        public const string Version = "1.0.1";
+        public const string Author = "Xavi";
+        public const string DownloadLink = "https://github.com/xavion-lux/PyroPortal";
+    }
+
     public class Mod : MelonMod
     {
         public static PyroModule module;
@@ -18,8 +26,8 @@ namespace PyroPortal
 
         public override void OnApplicationStart()
         {
-            module = RegisterModule("PyroPortal", "1.0.0", "Xavi");
-            menu = module.CreateCategory("PyroPortal");
+            module = RegisterModule(BuildInfo.Name, BuildInfo.Version, BuildInfo.Author, moduleDownloadUrl: BuildInfo.DownloadLink);
+            menu = module.CreateCategory(BuildInfo.Name);
 
             ClassInjector.RegisterTypeInIl2Cpp<InfinitePortal>();
 

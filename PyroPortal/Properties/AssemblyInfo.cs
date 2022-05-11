@@ -36,6 +36,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: MelonInfo(typeof(PyroPortal.Mod), "PyroPortal", "1.0.0", "Xavi")]
+[assembly: MelonInfo(typeof(PyroPortal.Mod), PyroPortal.BuildInfo.Name, PyroPortal.BuildInfo.Version, PyroPortal.BuildInfo.Author, PyroPortal.BuildInfo.DownloadLink)]
 [assembly: MelonGame("VRChat", "VRChat")]
 [assembly: MelonAdditionalDependencies("PyroMod")]
