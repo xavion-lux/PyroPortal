@@ -36,7 +36,7 @@ namespace PyroPortal
                 {
                     foreach (PortalInternal p in GameObject.FindObjectsOfType<PortalInternal>())
                     {
-                        if (p.field_Private_Int32_0 == VRC.Player.prop_Player_0.prop_Int32_0)
+                        if (p.field_Private_Int32_0 == VRC.Player.prop_Player_0.prop_Int32_0 && !p.gameObject.TryGetComponent<InfinitePortal>(out var _))
                         {
                             var i = p.gameObject.AddComponent<InfinitePortal>();
                             MelonCoroutines.Start(i.SetTimer());
