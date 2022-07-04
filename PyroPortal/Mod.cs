@@ -13,7 +13,7 @@ namespace PyroPortal
     public class BuildInfo
     {
         public const string Name = "PyroPortal";
-        public const string Version = "1.0.1";
+        public const string Version = "1.0.2";
         public const string Author = "Xavi";
         public const string DownloadLink = "https://github.com/xavion-lux/PyroPortal";
     }
@@ -26,17 +26,17 @@ namespace PyroPortal
 
         public override void OnApplicationStart()
         {
+            ClassInjector.RegisterTypeInIl2Cpp<InfinitePortal>();
+
             module = RegisterModule(BuildInfo.Name, BuildInfo.Version, BuildInfo.Author, moduleDownloadUrl: BuildInfo.DownloadLink);
             menu = module.CreateCategory(BuildInfo.Name);
-
-            ClassInjector.RegisterTypeInIl2Cpp<InfinitePortal>();
 
             QMSingleButton infiniteTimerButton = module.CreateButton(menu, "Infinite Timer",
                 () =>
                 {
-                    foreach (PortalInternal p in GameObject.FindObjectsOfType<PortalInternal>())
+                    foreach(PortalInternal p in GameObject.FindObjectsOfType<PortalInternal>())
                     {
-                        if (p.field_Private_Int32_0 == VRC.Player.prop_Player_0.prop_Int32_0 && !p.gameObject.TryGetComponent<InfinitePortal>(out var _))
+                        if(p.field_Private_Int32_0 == VRC.Player.prop_Player_0.prop_Int32_0 && p.gameObject.GetComponent<InfinitePortal>() == null)
                         {
                             var i = p.gameObject.AddComponent<InfinitePortal>();
                             MelonCoroutines.Start(i.SetTimer());
@@ -71,9 +71,17 @@ namespace PyroPortal
         [HideFromIl2Cpp]
         public IEnumerator SetTimer()
         {
-            while (true)
+            while(true)
             {
-                transform.GetComponent<PortalInternal>().SetTimerRPC(float.MinValue, VRC.Player.prop_Player_0);
+                try
+                {
+                    transform.GetComponent<PortalInternal>().SetTimerRPC(float.MinValue, VRC.Player.prop_Player_0);
+                }
+                catch 
+                { 
+                    break; 
+                }
+                
                 yield return null;
             }
         }
